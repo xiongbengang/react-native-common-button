@@ -9,7 +9,7 @@ import {TouchableHighlight, TouchableWithoutFeedback, View, Text, StyleSheet, Im
 
 const INTERVAL = 250;
 
-export default class RDFButton extends Component {
+export default class Button extends Component {
 
 	static ButtonState = {
 		normal: 0,
@@ -118,7 +118,7 @@ export default class RDFButton extends Component {
 
 	constructor(props) {
 		super(props);
-		const initialButtonState = this.props.buttonState || (this.props.disabled ? RDFButton.ButtonState.disabled : RDFButton.ButtonState.normal);
+		const initialButtonState = this.props.buttonState || (this.props.disabled ? Button.ButtonState.disabled : Button.ButtonState.normal);
 		this.state = {
 			buttonState: initialButtonState,
 			buttonStateBeforePressedIn: initialButtonState,
@@ -204,19 +204,19 @@ export default class RDFButton extends Component {
 		let backgroundColor = this.props.backgroundColor;
 		let backgroundImage = this.props.backgroundImage;
 		switch (this.state.buttonState) {
-			case RDFButton.ButtonState.highlighted: {
+			case Button.ButtonState.highlighted: {
 				image = this.props.highlightedImage || image;
 				backgroundColor = this.props.highlightedColor || backgroundColor;
 				backgroundImage = this.props.highlightedBackgroundImage || backgroundImage;
 				break;
 			}
-			case RDFButton.ButtonState.disabled: {
+			case Button.ButtonState.disabled: {
 				image = this.props.disabledImage || image;
 				backgroundColor = this.props.disabledColor || backgroundColor;
 				backgroundImage = this.props.disabledBackgroundImage || backgroundImage;
 				break;
 			}
-			case RDFButton.ButtonState.selected: {
+			case Button.ButtonState.selected: {
 				image = this.props.selectedImage || image;
 				backgroundColor = this.props.selectedColor || backgroundColor;
 				backgroundImage = this.props.selectedBackgroundImage || backgroundImage;
@@ -246,7 +246,7 @@ export default class RDFButton extends Component {
 	onPressIn() {
 		const buttonStateBeforePressedIn = this.state.buttonState;
 		this.setState({
-			buttonState: RDFButton.ButtonState.highlighted,
+			buttonState: Button.ButtonState.highlighted,
 			buttonStateBeforePressedIn,
 		});
 		this.props.onPressIn && this.props.onPressIn();
