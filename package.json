@@ -1,8 +1,18 @@
 {
   "name": "react-native-common-button",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react native common button for manay states",
-  "main": "index.js",
+  "main": "Button.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xiongbengang/react-native-common-button.git"
+  },
+  "keywords": [
+    "react-native",
+    "reactnative",
+    "react-native-button",
+    "react-native-common-button"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
