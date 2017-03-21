@@ -1,4 +1,4 @@
 # react-native-common-button
 react-native button component for many states
-# useage
+# usage
 npm install react-native-common-button --save
