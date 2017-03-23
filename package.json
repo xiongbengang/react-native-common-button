@@ -1,6 +1,6 @@
 {
   "name": "react-native-common-button",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "react native common button for manay states",
   "main": "Button.js",
   "repository": {
