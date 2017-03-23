@@ -126,6 +126,14 @@ export default class Button extends Component {
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const initialButtonState = nextProps.buttonState || (nextProps.disabled ? RDFButton.ButtonState.disabled : RDFButton.ButtonState.normal);
+		this.state = {
+			buttonState: initialButtonState,
+			buttonStateBeforePressedIn: initialButtonState,
+		};
+	}
+
 	render() {
 		let touchableProps = {};
 		if (!this.props.disabled) {
@@ -156,7 +164,7 @@ export default class Button extends Component {
 					onPress={() => this.onPress()}
 					onPressIn={() => this.onPressIn()}
 					onPressOut={() => this.onPressOut()}
-					underlayColor={this.props.highlightedColor}
+					underlayColor={this.props.underlayColor}
 					style={styles.touchableContent}>
 					<View style={[
 						styles.touchableContent,
@@ -239,7 +247,7 @@ export default class Button extends Component {
 		if (time - this.state.currentTime <= this.getInterval()) {
 			return;
 		}
-		this.props.onPress();
+		this.props.onPress && this.props.onPress();
 		this.setState({currentTime: time});
 	}
 
