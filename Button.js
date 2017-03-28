@@ -135,53 +135,47 @@ export default class Button extends Component {
 	}
 
 	render() {
-		let touchableProps = {};
-		if (!this.props.disabled) {
-			touchableProps.onPress = this.props.onPress;
-			touchableProps.onPressIn = this.props.onPressIn;
-			touchableProps.onPressOut = this.props.onPressOut;
-			touchableProps.onLongPress = this.props.onLongPress;
-		}
+        const {image, backgroundColor, backgroundImage} = this.displayParameters();
+        const useImage = this.props.backgroundImage || this.props.highlightedBackgroundImage || this.props.selectedBackgroundImage || this.props.disabledBackgroundImage;
+        const TouchableComponent = useImage ? TouchableWithoutFeedback : TouchableHighlight;
+        const ContainerComponent = useImage ? Image : View;
+        const sourceProps = useImage ? {source: backgroundImage} : {};
+        const resizeProps = useImage ? {resizeMode: 'stretch'} : {};
 
-		const {image, backgroundColor, backgroundImage} = this.displayParameters();
-		const iconElement = image && this.renderImage(image);
-		const TouchableComponent = backgroundImage ? TouchableWithoutFeedback : TouchableHighlight;
-		return (
-			<Image
-				source={backgroundImage}
+        const iconElement = image && this.renderImage(image);
+        return (
+			<ContainerComponent
+                {...sourceProps}
 				style={[
-					this.props.style,
-					{
-						resizeMode: 'stretch',
-						borderWidth: this.props.borderWidth,
-						borderRadius: this.props.borderRadius,
-						borderColor: this.props.borderColor,
-					}
-				]}>
+                    this.props.style,
+                    {...resizeProps,},
+                ]}>
 				<TouchableComponent
-					{...touchableProps}
 					disabled={this.props.disabled || false}
 					onPress={() => this.onPress()}
 					onPressIn={() => this.onPressIn()}
 					onPressOut={() => this.onPressOut()}
 					underlayColor={this.props.underlayColor}
-					style={styles.touchableContent}>
+					style={[styles.touchableContent]}>
 					<View style={[
-						styles.touchableContent,
-						{
-							backgroundColor,
-							flexDirection: (this.props.imagePosition == 'left' || this.props.imagePosition == 'right') ? 'row' : 'column',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}
-					]}>
-						{this.props.imagePosition && (this.props.imagePosition == 'left' || this.props.imagePosition == 'top') && iconElement}
-						{this.props.text && this.renderText()}
-						{this.props.imagePosition && (this.props.imagePosition == 'right' || this.props.imagePosition == 'bottom') && iconElement}
+                        styles.touchableContent,
+                        {
+                            backgroundColor,
+                            borderWidth: this.props.borderWidth,
+                            borderRadius: this.props.borderRadius,
+                            borderColor: this.props.borderColor,
+                            flexDirection: (this.props.imagePosition == 'left' || this.props.imagePosition == 'right') ? 'row' : 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }
+                    ]}>
+                        {this.props.imagePosition && (this.props.imagePosition == 'left' || this.props.imagePosition == 'top') && iconElement}
+                        {this.props.text && this.renderText()}
+                        {this.props.imagePosition && (this.props.imagePosition == 'right' || this.props.imagePosition == 'bottom') && iconElement}
 					</View>
 				</TouchableComponent>
-			</Image>
-		);
+			</ContainerComponent>
+        );
 	}
 
 	/**
